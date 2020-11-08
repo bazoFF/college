@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84334228-333e-4aa1-9281-58096fc574fa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../build/.htaccess" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/college-api.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../scripts/windows/symlinks.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../scripts/windows/build-client.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/windows/build-client.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../scripts/windows/deploy-local.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../build/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../college-client/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../college-client/src/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +187,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1604830432492</updated>
-      <workItem from="1604830433991" duration="6672000" />
+      <workItem from="1604830433991" duration="6946000" />
     </task>
     <servers />
   </component>
