@@ -1,0 +1,1 @@
+xcopy ..\..\build "C:\Projects\OpenServer\domains\college" /y /s /e /q
