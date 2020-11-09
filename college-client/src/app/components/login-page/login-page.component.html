@@ -1,0 +1,23 @@
+<div class="login-page">
+    <form [formGroup]="form" (ngSubmit)="login()">
+        <div class="login-page__form">
+            <div class="login-page__form__logo">
+                <img class="login-page__form__logo-img" src="../../../assets/logo.jpg" alt="logo">
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Логин</mat-label>
+                <input formControlName="login" matInput type="text" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="form.get('login').hasError('required')">Обязательное поле</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Пароль</mat-label>
+                <input formControlName="password" matInput [type]="hidePass ? 'password' : 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="hidePass = !hidePass">
+                    <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="form.get('password').hasError('required')">Обязательное поле</mat-error>
+            </mat-form-field>
+            <button type="submit" mat-raised-button class="login-page__form__btn" color="primary">ВОЙТИ</button>
+        </div>
+    </form>
+</div>
