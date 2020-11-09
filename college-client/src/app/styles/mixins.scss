@@ -1,0 +1,7 @@
+@import './variables';
+
+@mixin page() {
+  display: flex;
+  flex-grow: 1;
+  background-color: $background-color-gray;
+}

@@ -1,19 +1,19 @@
-:host {
-  display: flex;
-  flex-direction: column;
-}
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
 .login-page {
-  display: flex;
+  @include page;
   justify-content: center;
   align-items: center;
   height: 100%;
   &__form {
     display: flex;
     flex-direction: column;
+    background-color: white;
     justify-content: center;
-    width: 350px;
+    width: 290px;
     padding: 30px 30px 30px 30px;
-    box-shadow: 0 0 25px #d5d5d5;
+    box-shadow: $shadow;
     border-radius: 15px;
     &__logo {
       display: flex;
@@ -21,6 +21,7 @@
       padding: 20px 0 40px 0;
       &-img {
         width: 150px;
+        cursor: pointer;
       }
     }
     &__btn {
@@ -28,6 +29,16 @@
       letter-spacing: 1px;
       font-size: 15px;
       margin-top: 5px;
+    }
+  }
+}
+
+
+@media #{$xs} {
+  .login-page {
+    background-color: white;
+    &__form {
+      box-shadow: none;
     }
   }
 }
