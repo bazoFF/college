@@ -8,18 +8,18 @@ import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', // оставить заявку на ипотеку
     component: HomePageComponent
   },
-  {
-    path: 'admin',
-    component: AdminPanelPageComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'login',
-    component: LoginPageComponent
-  },
+  // {
+  //   path: 'admin', // изменять банки
+  //   component: AdminPanelPageComponent,
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'login', // вход в админку
+  //   component: LoginPageComponent
+  // },
 ];
 
 @NgModule({

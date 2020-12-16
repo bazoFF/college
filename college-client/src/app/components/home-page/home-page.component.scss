@@ -3,6 +3,14 @@
 
 .home-page {
   @include page;
-  justify-content: center;
-  align-items: center;
+}
+
+@media #{$xs} {
+  .home-page {
+    background-color: white;
+    &__form {
+      box-shadow: none;
+      margin: 0;
+    }
+  }
 }

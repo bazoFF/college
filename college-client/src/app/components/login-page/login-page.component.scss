@@ -3,42 +3,4 @@
 
 .login-page {
   @include page;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  &__form {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    justify-content: center;
-    width: 290px;
-    padding: 30px 30px 30px 30px;
-    box-shadow: $shadow;
-    border-radius: 15px;
-    &__logo {
-      display: flex;
-      justify-content: center;
-      padding: 20px 0 40px 0;
-      &-img {
-        width: 150px;
-        cursor: pointer;
-      }
-    }
-    &__btn {
-      padding: 10px;
-      letter-spacing: 1px;
-      font-size: 15px;
-      margin-top: 5px;
-    }
-  }
-}
-
-
-@media #{$xs} {
-  .login-page {
-    background-color: white;
-    &__form {
-      box-shadow: none;
-    }
-  }
 }

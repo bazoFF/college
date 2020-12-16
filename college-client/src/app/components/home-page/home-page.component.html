@@ -1,4 +1,62 @@
-<app-header></app-header>
+<!--<app-header></app-header>-->
 <div class="home-page">
-    No content... :(
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="home-page__form">
+      <div class="home-page__form__logo">
+        <img class="home-page__form__logo-img" src="../../../assets/logo.png" alt="logo" routerLink="/" />
+      </div>
+      <div class="home-page__form__title">
+        <h2>Калькулятор ипотеки</h2>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Стоимость недвижемости</mat-label>
+        <input formControlName="price" matInput currencyMask [errorStateMatcher]="matcher" />
+        <mat-error *ngIf="price.hasError('required')">Обязательное поле</mat-error>
+        <mat-error *ngIf="price.hasError('min')">Мин. сумма 1 млн. руб.</mat-error>
+        <mat-error *ngIf="price.hasError('max')">Макс. сумма 15 млн. руб.</mat-error>
+      </mat-form-field>
+      <mat-slider
+        (input)="price.setValue($event.value)"
+        min="1000000"
+        max="15000000"
+        step="100000"
+        color="primary"
+        [value]="price.value"
+      ></mat-slider>
+      <mat-form-field appearance="outline">
+        <mat-label>Первоначальный взнос</mat-label>
+        <input formControlName="deposit" matInput currencyMask [errorStateMatcher]="matcher" />
+        <mat-error *ngIf="deposit.hasError('required')">Обязательное поле</mat-error>
+        <mat-error *ngIf="deposit.hasError('min')">Мин. сумма не может быть меньше 15% от стоимости недвижемости</mat-error>
+        <mat-error *ngIf="deposit.hasError('max')">Макс. сумма не может быть больше 90% от стоимости недвижемости</mat-error>
+      </mat-form-field>
+      <mat-slider
+        (input)="deposit.setValue($event.value)"
+        [min]="minDeposit"
+        [max]="maxDeposit"
+        step="50000"
+        color="primary"
+        [value]="deposit.value"
+      ></mat-slider>
+
+      <!--            <mat-form-field appearance="outline">-->
+      <!--                <mat-label>Имя</mat-label>-->
+      <!--                <input formControlName="firstName" matInput type="text" [errorStateMatcher]="matcher">-->
+      <!--                <mat-error *ngIf="form.get('firstName').hasError('required')">Обязательное поле</mat-error>-->
+      <!--            </mat-form-field>-->
+      <!--            <mat-form-field appearance="outline">-->
+      <!--                <mat-label>Фамилия</mat-label>-->
+      <!--                <input formControlName="lastName" matInput type="text" [errorStateMatcher]="matcher">-->
+      <!--                <mat-error *ngIf="form.get('lastName').hasError('required')">Обязательное поле</mat-error>-->
+      <!--            </mat-form-field>-->
+      <!--            <mat-form-field appearance="outline">-->
+      <!--                <mat-label>E-mail</mat-label>-->
+      <!--                <input formControlName="email" matInput type="email" [errorStateMatcher]="matcher">-->
+      <!--                <mat-error *ngIf="form.get('email').hasError('email')">Неверный формат</mat-error>-->
+      <!--                <mat-error *ngIf="form.get('email').hasError('required')">Обязательное поле</mat-error>-->
+      <!--            </mat-form-field>-->
+      <button type="submit" mat-raised-button class="home-page__form__btn" color="primary">Получить предложения</button>
+      <app-loading *ngIf="loading"></app-loading>
+    </div>
+  </form>
 </div>
