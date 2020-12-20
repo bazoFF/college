@@ -11,15 +11,15 @@ const routes: Routes = [
     path: '', // оставить заявку на ипотеку
     component: HomePageComponent
   },
-  // {
-  //   path: 'admin', // изменять банки
-  //   component: AdminPanelPageComponent,
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: 'login', // вход в админку
-  //   component: LoginPageComponent
-  // },
+  {
+    path: 'admin', // изменять банки
+    component: AdminPanelPageComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login', // вход в админку
+    component: LoginPageComponent
+  }
 ];
 
 @NgModule({

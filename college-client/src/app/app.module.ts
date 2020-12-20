@@ -29,6 +29,8 @@ import { AdminPanelPageComponent } from './components/admin-panel-page/admin-pan
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { OfferListComponent } from './components/home-page/offers-list/offer-list.component';
+import { OfferFormComponent } from './components/home-page/offer-form/offer-form.component';
+import { RequestFormComponent } from './components/home-page/request-form/request-form.component';
 
 export const currencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
@@ -48,7 +50,9 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
     LoginPageComponent,
     AdminPanelPageComponent,
     LoadingComponent,
-    OfferListComponent
+    OfferListComponent,
+    OfferFormComponent,
+    RequestFormComponent
   ],
   imports: [
     BrowserModule,

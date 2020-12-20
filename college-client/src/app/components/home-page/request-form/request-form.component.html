@@ -1,0 +1,172 @@
+<div class="request-form__wrapper">
+  <div class="request-form">
+    <h2 class="request-form__title">
+      <button mat-icon-button class="request-form__back" (click)="back.emit()" type="button">
+        <mat-icon>west</mat-icon>
+      </button>
+      <span>Отправьте заявку</span>
+    </h2>
+    <mat-vertical-stepper [linear]="true">
+      <mat-step [stepControl]="fullNameForm" errorMessage="Name is required.">
+        <form [formGroup]="fullNameForm">
+          <ng-template matStepLabel>Укажите ФИО</ng-template>
+          <mat-form-field class="request-form__field" appearance="outline">
+            <mat-label>Фамилия</mat-label>
+            <input
+              class="request-form__field__input"
+              formControlName="lastName"
+              matInput
+              [errorStateMatcher]="matcher"
+            />
+            <mat-error *ngIf="fullNameForm.get('lastName').hasError('required')">Обязательное поле</mat-error>
+          </mat-form-field>
+          <mat-form-field class="request-form__field" appearance="outline">
+            <mat-label>Имя</mat-label>
+            <input
+              class="request-form__field__input"
+              formControlName="firstName"
+              matInput
+              [errorStateMatcher]="matcher"
+            />
+            <mat-error *ngIf="fullNameForm.get('firstName').hasError('required')">Обязательное поле</mat-error>
+          </mat-form-field>
+          <mat-form-field class="request-form__field" appearance="outline">
+            <mat-label>Отчество</mat-label>
+            <input
+              class="request-form__field__input"
+              formControlName="middleName"
+              matInput
+              [errorStateMatcher]="matcher"
+            />
+            <mat-error *ngIf="fullNameForm.get('middleName').hasError('required')">Обязательное поле</mat-error>
+          </mat-form-field>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="ageAndSalaryForm">
+        <form [formGroup]="ageAndSalaryForm">
+          <ng-template matStepLabel>Укажите возраст и доход</ng-template>
+          <mat-form-field
+            appearance="outline"
+            class="request-form__field-number request-form__field"
+            hintLabel="18 лет"
+          >
+            <mat-label>Возраст</mat-label>
+            <input
+              min="18"
+              max="60"
+              class="request-form__field__input"
+              formControlName="age"
+              matInput
+              [errorStateMatcher]="matcher"
+              type="number"
+            />
+            <mat-hint align="end">60 лет</mat-hint>
+            <mat-error *ngIf="ageAndSalaryForm.get('age').hasError('required')">Обязательное поле</mat-error>
+            <mat-error *ngIf="ageAndSalaryForm.get('age').hasError('min')"
+              >Мин. возраст для оформления ипотеки 18 лет</mat-error
+            >
+            <mat-error *ngIf="ageAndSalaryForm.get('age').hasError('max')"
+              >Макс. возраст для оформления ипотеки 70 лет</mat-error
+            >
+          </mat-form-field>
+          <div class="request-form__field__slider-container">
+            <mat-slider
+              class="request-form__field__slider"
+              (input)="ageAndSalaryForm.get('age').setValue($event.value)"
+              min="18"
+              max="60"
+              step="1"
+              [color]="ageAndSalaryForm.get('age').valid ? 'primary' : 'accent'"
+              [value]="ageAndSalaryForm.get('age').value"
+            ></mat-slider>
+          </div>
+          <mat-form-field
+            appearance="outline"
+            class="request-form__field request-form__field-number"
+          >
+            <mat-label>Ежемесячный доход</mat-label>
+            <input
+              class="request-form__field__input"
+              formControlName="salary"
+              matInput
+              [errorStateMatcher]="matcher"
+              currencyMask
+            />
+            <mat-error *ngIf="ageAndSalaryForm.get('salary').hasError('required')">Обязательное поле</mat-error>
+            <mat-error *ngIf="ageAndSalaryForm.get('salary').hasError('min')"
+              >Мин. сумма не может быть меньше необходимого дохода
+              {{ offer.neededSalary | currency: '₽ ':'symbol':'0.0-0' }}</mat-error
+            >
+          </mat-form-field>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="documentsForm">
+        <form [formGroup]="documentsForm">
+          <ng-template matStepLabel>Укажите документы</ng-template>
+          <mat-form-field class="request-form__field" appearance="outline">
+            <mat-label>Серия паспорта</mat-label>
+            <input
+              class="request-form__field__input"
+              formControlName="passportSeries"
+              matInput
+              [errorStateMatcher]="matcher"
+            />
+            <mat-error *ngIf="documentsForm.get('passportSeries').hasError('required')">Обязательное поле</mat-error>
+            <mat-error *ngIf="documentsForm.get('passportSeries').hasError('pattern')">Неправильный формат</mat-error>
+          </mat-form-field>
+            <mat-form-field class="request-form__field" appearance="outline">
+                <mat-label>Номер паспорта</mat-label>
+                <input
+                        class="request-form__field__input"
+                        formControlName="passportNumber"
+                        matInput
+                        [errorStateMatcher]="matcher"
+                />
+                <mat-error *ngIf="documentsForm.get('passportNumber').hasError('required')">Обязательное поле</mat-error>
+                <mat-error *ngIf="documentsForm.get('passportNumber').hasError('pattern')">Неправильный формат</mat-error>
+            </mat-form-field>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="contactsForm">
+        <form [formGroup]="contactsForm">
+          <ng-template matStepLabel>Укажите контакты</ng-template>
+          <mat-form-field appearance="outline" class="request-form__field">
+            <mat-label>E-mail</mat-label>
+            <input
+              class="request-form__field__input"
+              formControlName="email"
+              matInput
+              [errorStateMatcher]="matcher"
+              type="email"
+            />
+            <mat-error *ngIf="contactsForm.get('email').hasError('required')">Обязательное поле</mat-error>
+            <mat-error *ngIf="contactsForm.get('email').hasError('email')">Неправильный формат</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="request-form__field">
+            <mat-label>Телефон</mat-label>
+            <input
+              class="request-form__field__input"
+              formControlName="phone"
+              matInput
+              [errorStateMatcher]="matcher"
+              type="tel"
+            />
+            <mat-error *ngIf="contactsForm.get('phone').hasError('required')">Обязательное поле</mat-error>
+            <mat-error *ngIf="contactsForm.get('phone').hasError('pattern')">Неправильный формат</mat-error>
+          </mat-form-field>
+        </form>
+      </mat-step>
+    </mat-vertical-stepper>
+
+    <button
+      [disabled]="fullNameForm.invalid || ageAndSalaryForm.invalid || documentsForm.invalid || contactsForm.invalid"
+      type="button"
+      (click)="submit()"
+      mat-raised-button
+      class="request-form__submit"
+      color="primary"
+    >
+      Отправить
+    </button>
+  </div>
+</div>

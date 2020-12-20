@@ -1,10 +1,9 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ErrorStateMatcherService } from '../../services/error-state-matcher.service';
-import { MatBottomSheet, MatDialog } from '@angular/material';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTabGroup } from '@angular/material';
 import { OfferListComponent } from './offers-list/offer-list.component';
-import { IOffer } from '../../models/offer';
-import { OfferService } from '../../services/offer.service';
+import { IOffer, IOfferGetRequest } from '../../models/offer';
+import { LoanService } from '../../services/loan.service';
+import {ILoanRequest} from '../../models/loan-request';
 
 @Component({
   selector: 'app-home-page',
@@ -13,90 +12,62 @@ import { OfferService } from '../../services/offer.service';
 })
 export class HomePageComponent implements OnInit {
   @HostBinding('class.host-class') addHostClass = true;
+  @ViewChild('tabs', { static: false }) tabs: MatTabGroup;
 
-  form: FormGroup;
-  loading = false;
+  offer: IOffer;
+  loanRequest: ILoanRequest;
+  canSlideToRequest: boolean = false;
 
-  constructor(
-    public matcher: ErrorStateMatcherService,
-    private formBuilder: FormBuilder,
-    private offerService: OfferService,
-    public dialog: MatDialog
-  ) {}
+  loading: boolean = false;
+  animationDuration: number = 800;
 
-  get price() {
-    return this.form.get('price');
-  }
+  constructor(private loanService: LoanService, public dialog: MatDialog) {}
 
-  get deposit() {
-    return this.form.get('deposit');
-  }
+  ngOnInit() {}
 
-  get minDeposit() {
-    return this.price.value * 0.15;
-  }
+  openOffersList(dto: IOfferGetRequest) {
+    this.loading = true;
 
-  get maxDeposit() {
-    return this.price.value * 0.9;
-  }
-
-  get duration() {
-    return this.form.get('duration');
-  }
-
-  ngOnInit() {
-    this.buildForm();
-    this.submit();
-  }
-
-  submit() {
-    if (this.form.valid) {
-      this.loading = true;
-
-      const dto = {
-        price: this.price.value,
-        deposit: this.deposit.value,
-        duration: this.duration.value
-      };
-
-      this.offerService.getOffers(dto).subscribe((offers) => {
-        const offerRef = this.dialog.open(OfferListComponent, {
-          data: offers
-        });
-
-        this.loading = false;
-
-        offerRef.afterClosed().subscribe((offer) => {
-          if (offer) {
-            console.log('Go to loan request', offer);
-          }
-        });
+    this.loanService.getOffers(dto).subscribe((offers) => {
+      const offerRef = this.dialog.open(OfferListComponent, {
+        data: offers
       });
-    }
+
+      this.loading = false;
+
+      offerRef.afterClosed().subscribe((offer) => {
+        this.offer = offer;
+
+        if (this.offer) {
+          setTimeout(() => {
+            this.canSlideToRequest = true;
+          }, this.animationDuration * 1.5);
+          this.slideToRequest();
+        }
+      });
+    });
   }
 
-  private buildForm() {
-    this.form = this.formBuilder.group({
-      price: [5000000, [Validators.required, Validators.min(1000000), Validators.max(15000000)]],
-      deposit: [1000000, [Validators.required, Validators.min(5000000 * 0.15), Validators.max(5000000 * 0.9)]],
-      duration: [15, [Validators.required, Validators.min(1), Validators.max(30)]]
+  sendRequest(dto: ILoanRequest) {
+    this.loading = true;
+
+    this.loanService.loanRequest(dto).subscribe(() => {
+      this.loanRequest = dto;
+
+      this.slideToFinish();
+      this.loading = false;
     });
+  }
 
-    this.price.valueChanges.subscribe(() => {
-      if (this.deposit.value < this.minDeposit) {
-        this.deposit.setValue(this.minDeposit);
-      }
+  slideToOffer() {
+    this.tabs.selectedIndex = 0;
+  }
 
-      if (this.deposit.value > this.maxDeposit) {
-        this.deposit.setValue(this.maxDeposit);
-      }
+  slideToRequest() {
+    this.tabs.selectedIndex = 1;
+  }
 
-      this.deposit.setValidators([
-        Validators.required,
-        Validators.min(this.minDeposit),
-        Validators.max(this.maxDeposit)
-      ]);
-      this.deposit.markAsTouched();
-    });
+  slideToFinish() {
+    this.tabs.selectedIndex = 2;
   }
 }

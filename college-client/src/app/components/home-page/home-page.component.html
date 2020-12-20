@@ -1,106 +1,34 @@
-<!--<app-header></app-header>-->
 <div class="home-page">
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="home-page__form">
-      <div class="home-page__form__logo">
-        <img class="home-page__form__logo-img" src="../../../assets/logo.png" alt="logo" routerLink="/" />
-      </div>
-      <div class="home-page__form__title">
-        <h2>Рассчитать ипотеку</h2>
-      </div>
-      <mat-form-field
-        class="home-page__form__field"
-        appearance="outline"
-        [hintLabel]="1000000 | currency: '₽ ':'symbol':'0.0-0'"
-      >
-        <mat-label>Стоимость недвижемости</mat-label>
-        <input
-          class="home-page__form__field__input"
-          formControlName="price"
-          matInput
-          currencyMask
-          [errorStateMatcher]="matcher"
-        />
-        <mat-hint align="end">{{ 15000000 | currency: '₽ ':'symbol':'0.0-0' }}</mat-hint>
-        <mat-error *ngIf="price.hasError('required')">Обязательное поле</mat-error>
-        <mat-error *ngIf="price.hasError('min')">Мин. сумма 1 млн. руб.</mat-error>
-        <mat-error *ngIf="price.hasError('max')">Макс. сумма 15 млн. руб.</mat-error>
-      </mat-form-field>
-      <div class="home-page__form__field__slider-container">
-        <mat-slider
-          class="home-page__form__field__slider"
-          (input)="price.setValue($event.value)"
-          min="1000000"
-          max="15000000"
-          step="100000"
-          [color]="price.valid ? 'primary' : 'accent'"
-          [value]="price.value"
-        ></mat-slider>
-      </div>
-      <mat-form-field
-        appearance="outline"
-        class="home-page__form__field"
-        [hintLabel]="minDeposit | currency: '₽ ':'symbol':'0.0-0'"
-      >
-        <mat-label>Первоначальный взнос</mat-label>
-        <input
-          class="home-page__form__field__input"
-          formControlName="deposit"
-          matInput
-          [errorStateMatcher]="matcher"
-          currencyMask
-        />
-        <mat-hint align="end">{{ maxDeposit | currency: '₽ ':'symbol':'0.0-0' }}</mat-hint>
-        <mat-error *ngIf="deposit.hasError('required')">Обязательное поле</mat-error>
-        <mat-error *ngIf="deposit.hasError('min')"
-          >Мин. сумма не может быть меньше 15% от стоимости недвижемости</mat-error
-        >
-        <mat-error *ngIf="deposit.hasError('max')"
-          >Макс. сумма не может быть больше 90% от стоимости недвижемости</mat-error
-        >
-      </mat-form-field>
-      <div class="home-page__form__field__slider-container">
-        <mat-slider
-          class="home-page__form__field__slider"
-          (input)="deposit.setValue($event.value)"
-          [min]="minDeposit"
-          [max]="maxDeposit"
-          step="50000"
-          [color]="deposit.valid ? 'primary' : 'accent'"
-          [value]="price.valid ? deposit.value : minDeposit"
-        ></mat-slider>
-      </div>
-      <mat-form-field appearance="outline" class="home-page__form__field" hintLabel="1 год">
-        <mat-label>Срок кредита</mat-label>
-        <input
-          min="1"
-          max="30"
-          class="home-page__form__field__input"
-          formControlName="duration"
-          matInput
-          [errorStateMatcher]="matcher"
-          type="number"
-        />
-        <mat-hint align="end">30 лет</mat-hint>
-        <mat-error *ngIf="duration.hasError('required')">Обязательное поле</mat-error>
-        <mat-error *ngIf="duration.hasError('min')">Мин. срок кредита 1 год</mat-error>
-        <mat-error *ngIf="duration.hasError('max')">Макс. срок кредита 30 лет</mat-error>
-      </mat-form-field>
-      <div class="home-page__form__field__slider-container">
-        <mat-slider
-          class="home-page__form__field__slider"
-          (input)="duration.setValue($event.value)"
-          min="1"
-          max="30"
-          step="1"
-          [color]="duration.valid ? 'primary' : 'accent'"
-          [value]="duration.value"
-        ></mat-slider>
-      </div>
-      <button [disabled]="form.invalid" type="submit" mat-raised-button class="home-page__form__btn" color="primary">
-        Получить предложения
-      </button>
-      <app-loading *ngIf="loading"></app-loading>
+  <div class="home-page__wrapper">
+    <div class="home-page__logo">
+      <img class="home-page__logo-img" src="../../../assets/logo.png" alt="logo" routerLink="/" />
     </div>
-  </form>
+    <mat-tab-group #tabs dynamicHeight [animationDuration]="animationDuration">
+      <mat-tab>
+        <app-offer-form
+          (sendRequest)="openOffersList($event)"
+          (next)="slideToRequest()"
+          [showNext]="canSlideToRequest"
+        ></app-offer-form>
+      </mat-tab>
+      <mat-tab>
+        <app-request-form
+                *ngIf="offer"
+                (sendRequest)="sendRequest($event)"
+                (back)="slideToOffer()"
+                [offer]="offer"
+        ></app-request-form>
+      </mat-tab>
+      <mat-tab>
+        <div class="home-page__finish">
+          Поздравляем, {{loanRequest?.firstName}}!<br><br>
+          Вы успешно отправили заявку на оформление ипотеки.<br>
+          Скоро с вами свяжется сотрудник "{{offer?.bankName}}" для уточнения деталей.<br><br>
+          Хорошего дня!
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>
+
+<app-loading *ngIf="loading"></app-loading>
