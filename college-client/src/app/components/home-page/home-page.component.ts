@@ -1,7 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcherService } from '../../services/error-state-matcher.service';
-import { MatSlider } from '@angular/material';
+import { MatBottomSheet, MatDialog } from '@angular/material';
+import { OfferListComponent } from './offers-list/offer-list.component';
+import { IOffer } from '../../models/offer';
+import { OfferService } from '../../services/offer.service';
 
 @Component({
   selector: 'app-home-page',
@@ -16,7 +19,9 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     public matcher: ErrorStateMatcherService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private offerService: OfferService,
+    public dialog: MatDialog
   ) {}
 
   get price() {
@@ -32,27 +37,49 @@ export class HomePageComponent implements OnInit {
   }
 
   get maxDeposit() {
-    return this.price.value * 0.90;
+    return this.price.value * 0.9;
+  }
+
+  get duration() {
+    return this.form.get('duration');
   }
 
   ngOnInit() {
     this.buildForm();
+    this.submit();
   }
 
   submit() {
-    if (!this.form.invalid) {
+    if (this.form.valid) {
       this.loading = true;
-      console.log(this.price.value, this.deposit.value);
-      setTimeout(() => {
+
+      const dto = {
+        price: this.price.value,
+        deposit: this.deposit.value,
+        duration: this.duration.value
+      };
+
+      this.offerService.getOffers(dto).subscribe((offers) => {
+        const offerRef = this.dialog.open(OfferListComponent, {
+          data: offers
+        });
+
         this.loading = false;
-      }, 3000);
+
+        offerRef.afterClosed().subscribe((offer) => {
+          if (offer) {
+            console.log('Go to loan request', offer);
+          }
+        });
+      });
     }
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
       price: [5000000, [Validators.required, Validators.min(1000000), Validators.max(15000000)]],
-      deposit: [5000000 * 0.3, [Validators.required, Validators.min(5000000 * 0.15), Validators.max(5000000 * 0.90)]]
+      deposit: [1000000, [Validators.required, Validators.min(5000000 * 0.15), Validators.max(5000000 * 0.9)]],
+      duration: [15, [Validators.required, Validators.min(1), Validators.max(30)]]
     });
 
     this.price.valueChanges.subscribe(() => {
@@ -64,7 +91,12 @@ export class HomePageComponent implements OnInit {
         this.deposit.setValue(this.maxDeposit);
       }
 
-      this.deposit.setValidators([Validators.required, Validators.min(this.minDeposit), Validators.max(this.maxDeposit)]);
+      this.deposit.setValidators([
+        Validators.required,
+        Validators.min(this.minDeposit),
+        Validators.max(this.maxDeposit)
+      ]);
+      this.deposit.markAsTouched();
     });
   }
 }

@@ -8,16 +8,27 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatBottomSheetModule,
   MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
+  MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSliderModule,
+  MatStepperModule,
+  MatTabsModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminPanelPageComponent } from './components/admin-panel-page/admin-panel-page.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
-import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from 'ng2-currency-mask';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
+import { OfferListComponent } from './components/home-page/offers-list/offer-list.component';
 
 export const currencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
@@ -26,7 +37,7 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
   precision: 0,
   prefix: '₽ ',
   suffix: '',
-  thousands: ' ',
+  thousands: ' '
 };
 
 @NgModule({
@@ -37,6 +48,7 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
     LoginPageComponent,
     AdminPanelPageComponent,
     LoadingComponent,
+    OfferListComponent
   ],
   imports: [
     BrowserModule,
@@ -51,10 +63,19 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
     MatProgressSpinnerModule,
     MatSliderModule,
     CurrencyMaskModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    MatBottomSheetModule,
+    MatCardModule,
+    MatGridListModule,
+    MatExpansionModule,
+    MatListModule,
+    MatChipsModule,
+    MatDialogModule
   ],
-  providers: [
-    { provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig }
-  ],
-  bootstrap: [AppComponent],
+  entryComponents: [OfferListComponent],
+  providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig }],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

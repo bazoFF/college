@@ -3,6 +3,13 @@
 
 .home-page {
   @include page;
+
+  &__form {
+    &__arrows {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }
 
 @media #{$xs} {
