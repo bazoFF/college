@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ErrorStateMatcherService } from '../../../services/error-state-matcher.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IOfferGetRequest } from '../../../models/offer';
+import { IOfferRequest } from '../../../models/offer';
 
 @Component({
   selector: 'app-offer-form',
@@ -11,7 +11,7 @@ import { IOfferGetRequest } from '../../../models/offer';
 export class OfferFormComponent implements OnInit {
   @Input() showNext: boolean;
 
-  @Output() sendRequest = new EventEmitter<IOfferGetRequest>();
+  @Output() sendRequest = new EventEmitter<IOfferRequest>();
   @Output() next = new EventEmitter<void>();
 
   form: FormGroup;
@@ -44,7 +44,7 @@ export class OfferFormComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      const dto: IOfferGetRequest = {
+      const dto: IOfferRequest = {
         price: this.price.value,
         deposit: this.deposit.value,
         duration: this.duration.value

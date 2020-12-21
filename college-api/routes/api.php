@@ -5,5 +5,6 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function(Router $router) {
-    $router->post('auth/login', 'AuthController@login');
+    $router->post('offers', 'LoanController@getOffers');
+    $router->put('loan-request', 'LoanController@loanRequest');
 });

@@ -1,9 +1,10 @@
 import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTabGroup } from '@angular/material';
 import { OfferListComponent } from './offers-list/offer-list.component';
-import { IOffer, IOfferGetRequest } from '../../models/offer';
+import { IOffer, IOfferRequest } from '../../models/offer';
 import { LoanService } from '../../services/loan.service';
-import {ILoanRequest} from '../../models/loan-request';
+import { ILoanRequest } from '../../models/loan-request';
+import { IPerson } from '../../models/person';
 
 @Component({
   selector: 'app-home-page',
@@ -15,6 +16,7 @@ export class HomePageComponent implements OnInit {
   @ViewChild('tabs', { static: false }) tabs: MatTabGroup;
 
   offer: IOffer;
+  offerRequest: IOfferRequest;
   loanRequest: ILoanRequest;
   canSlideToRequest: boolean = false;
 
@@ -25,10 +27,12 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {}
 
-  openOffersList(dto: IOfferGetRequest) {
+  openOffersList(dto: IOfferRequest) {
     this.loading = true;
 
     this.loanService.getOffers(dto).subscribe((offers) => {
+      this.offerRequest = dto;
+
       const offerRef = this.dialog.open(OfferListComponent, {
         data: offers
       });
@@ -48,8 +52,14 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  sendRequest(dto: ILoanRequest) {
+  sendRequest(person: IPerson) {
     this.loading = true;
+
+    const dto: ILoanRequest = {
+      person,
+      offer: this.offer,
+      offerRequest: this.offerRequest
+    };
 
     this.loanService.loanRequest(dto).subscribe(() => {
       this.loanRequest = dto;

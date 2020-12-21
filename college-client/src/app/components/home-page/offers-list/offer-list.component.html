@@ -5,14 +5,14 @@
     <mat-accordion>
       <mat-expansion-panel *ngFor="let offer of offers">
         <mat-expansion-panel-header>
-          <mat-panel-title class="offer__info_title">{{ offer.bankName }}</mat-panel-title>
+          <mat-panel-title class="offer__info_title">{{ offer.bank.name }}</mat-panel-title>
         </mat-expansion-panel-header>
         <mat-list>
           <mat-divider></mat-divider>
           <mat-list-item>
             <mat-chip-list class="offer__info">
               <mat-hint class="offer__info_label">Процентная ставка</mat-hint>
-              <mat-chip>{{ offer.mortgageRate | percent }}</mat-chip>
+              <mat-chip>{{ offer.bank.rate | percent }}</mat-chip>
             </mat-chip-list>
           </mat-list-item>
           <mat-divider></mat-divider>

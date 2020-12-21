@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dto\Auth\CredentialsDto;
-use App\Models\User;
+use App\Models\Admin;
 use Carbon\Carbon;
 use Exception;
 use Firebase\JWT\JWT;
@@ -23,8 +23,8 @@ class AuthController extends Controller
     {
         $dto = new CredentialsDto($request->all());
 
-        /** @var User $admin */
-        $admin = User::query()->where('login', $dto->login)->first();
+        /** @var Admin $admin */
+        $admin = Admin::query()->where('login', $dto->login)->first();
 
         if (empty($admin)) {
             return response()->json('Пользователя с таким логином не существует', 444);

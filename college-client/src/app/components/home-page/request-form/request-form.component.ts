@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IOffer, IOfferGetRequest} from '../../../models/offer';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ErrorStateMatcherService} from '../../../services/error-state-matcher.service';
-import {ILoanRequest} from '../../../models/loan-request';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IOffer, IOfferRequest } from '../../../models/offer';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ErrorStateMatcherService } from '../../../services/error-state-matcher.service';
+import { ILoanRequest } from '../../../models/loan-request';
+import { IPerson } from '../../../models/person';
 
 @Component({
   selector: 'app-request-form',
@@ -12,7 +13,7 @@ import {ILoanRequest} from '../../../models/loan-request';
 export class RequestFormComponent implements OnInit {
   @Input() offer: IOffer;
 
-  @Output() sendRequest = new EventEmitter<ILoanRequest>();
+  @Output() sendRequest = new EventEmitter<IPerson>();
   @Output() back = new EventEmitter<void>();
 
   fullNameForm: FormGroup;
@@ -28,8 +29,7 @@ export class RequestFormComponent implements OnInit {
 
   submit() {
     if (this.fullNameForm.valid && this.ageAndSalaryForm && this.documentsForm && this.contactsForm) {
-      const dto: ILoanRequest = {
-        offer: this.offer,
+      const dto: IPerson = {
         lastName: this.fullNameForm.get('lastName').value,
         firstName: this.fullNameForm.get('firstName').value,
         middleName: this.fullNameForm.get('middleName').value,
@@ -47,24 +47,50 @@ export class RequestFormComponent implements OnInit {
 
   private buildForm() {
     this.fullNameForm = this.formBuilder.group({
-      lastName: ['Базов', [Validators.required]],
-      firstName: ['Роман', [Validators.required]],
-      middleName: ['Валерьевич', [Validators.required]]
+      lastName: [null, [Validators.required]],
+      firstName: [null, [Validators.required]],
+      middleName: [null, [Validators.required]]
     });
 
     this.ageAndSalaryForm = this.formBuilder.group({
-      age: [20, [Validators.required, Validators.min(18), Validators.max(60)]],
-      salary: [75000, [Validators.required, Validators.min(this.offer.neededSalary)]]
+      age: [null, [Validators.required, Validators.min(18), Validators.max(60)]],
+      salary: [null, [Validators.required, Validators.min(this.offer.neededSalary)]]
     });
 
     this.documentsForm = this.formBuilder.group({
-      passportSeries: ['01 23', [Validators.required, Validators.pattern(/^[0-9]{2}\s?[0-9]{2}$/)]],
-      passportNumber: ['456789', [Validators.required, Validators.pattern(/^[0-9]{6}$/)]]
+      passportSeries: [null, [Validators.required, Validators.pattern(/^[0-9]{2}\s?[0-9]{2}$/)]],
+      passportNumber: [null, [Validators.required, Validators.pattern(/^[0-9]{6}$/)]]
     });
 
     this.contactsForm = this.formBuilder.group({
-      email: ['bazov.roma27072000@yandex.ru', [Validators.required, Validators.email]],
-      phone: ['+79997759365', [Validators.required, Validators.pattern(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/)]]
+      email: [null, [Validators.required, Validators.email]],
+      phone: [null, [Validators.required, Validators.pattern(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/)]]
     });
   }
+
+  // private buildForm() {
+  //   this.fullNameForm = this.formBuilder.group({
+  //     lastName: ['Базов', [Validators.required]],
+  //     firstName: ['Роман', [Validators.required]],
+  //     middleName: ['Валерьевич', [Validators.required]]
+  //   });
+  //
+  //   this.ageAndSalaryForm = this.formBuilder.group({
+  //     age: [20, [Validators.required, Validators.min(18), Validators.max(60)]],
+  //     salary: [75000, [Validators.required, Validators.min(this.offer.neededSalary)]]
+  //   });
+  //
+  //   this.documentsForm = this.formBuilder.group({
+  //     passportSeries: ['01 23', [Validators.required, Validators.pattern(/^[0-9]{2}\s?[0-9]{2}$/)]],
+  //     passportNumber: ['456789', [Validators.required, Validators.pattern(/^[0-9]{6}$/)]]
+  //   });
+  //
+  //   this.contactsForm = this.formBuilder.group({
+  //     email: ['bazov.roma27072000@yandex.ru', [Validators.required, Validators.email]],
+  //     phone: [
+  //       '+79997759365',
+  //       [Validators.required, Validators.pattern(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/)]
+  //     ]
+  //   });
+  // }
 }

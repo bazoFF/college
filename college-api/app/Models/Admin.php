@@ -9,11 +9,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $password
  * @property string $remember_token
  */
-class User extends Model
+class Admin extends Model
 {
+    public static function create(string $login, string $password)
+    {
+        $admin = new self();
+        $admin->login = $login;
+        $admin->password = $password;
+
+        $admin->save();
+    }
+
     public $timestamps = false;
 
-    protected $table = 'users';
+    protected $table = 'admins';
 
     protected $fillable = [
         'login',

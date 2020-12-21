@@ -1,13 +1,14 @@
-export interface IOfferGetRequest {
+import {IBank} from './bank';
+
+export interface IOfferRequest {
   price: number;
   deposit: number;
   duration: number;
 }
 
 export interface IOffer {
-  bankName: string;
+  bank: IBank;
   credit: number;
   monthlyPayment: number;
-  mortgageRate: number;
   neededSalary: number;
 }
