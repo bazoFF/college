@@ -52,7 +52,7 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
     LoadingComponent,
     OfferListComponent,
     OfferFormComponent,
-    RequestFormComponent
+    RequestFormComponent,
   ],
   imports: [
     BrowserModule,

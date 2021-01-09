@@ -11,12 +11,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-  @HostBinding('class.host-class') addHostClass = true;
-
   form: FormGroup = new FormGroup({});
-  loading = false;
-  hidePass = true;
-  error = '';
+  loading: boolean = false;
+  hidePass: boolean = true;
+  error: string = '';
 
   constructor(
       public matcher: ErrorStateMatcherService,
@@ -30,8 +28,9 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    if (!this.form.invalid) {
+    if (this.form.valid) {
       this.loading = true;
+
       const credentials: ICredentials = {
         login: this.form.get('login').value,
         password: this.form.get('password').value,

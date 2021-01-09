@@ -12,7 +12,6 @@ import { IPerson } from '../../models/person';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  @HostBinding('class.host-class') addHostClass = true;
   @ViewChild('tabs', { static: false }) tabs: MatTabGroup;
 
   offer: IOffer;

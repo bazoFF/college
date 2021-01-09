@@ -1,12 +1,12 @@
 <div class="offer-form__wrapper">
   <div class="offer-form">
     <form [formGroup]="form" (ngSubmit)="submit()">
-        <h2 class="offer-form__title">
-            <span>Рассчитать ипотеку</span>
-            <button mat-icon-button class="offer-form__next" (click)="next.emit()" type="button" *ngIf="showNext">
-                <mat-icon>east</mat-icon>
-            </button>
-        </h2>
+      <h2 class="offer-form__title">
+          <span>Рассчитать ипотеку</span>
+          <button mat-icon-button class="offer-form__next" (click)="next.emit()" type="button" *ngIf="showNext">
+              <mat-icon>east</mat-icon>
+          </button>
+      </h2>
       <mat-form-field
         class="offer-form__field offer-form__field-number"
         appearance="outline"

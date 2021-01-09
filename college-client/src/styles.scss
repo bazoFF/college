@@ -9,16 +9,11 @@
   text-decoration: none;
 }
 
-html, body, .host-class {
-  height: 100%;
+html, body {
+  min-height: 100vh;
   width: 100%;
 }
 
 h2 {
   font-size: 21px;
-}
-
-.host-class {
-  display: flex;
-  flex-direction: column;
 }

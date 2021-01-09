@@ -1,25 +1,28 @@
 <div class="login-page">
-    <form [formGroup]="form" (ngSubmit)="login()">
-        <div class="login-page__form">
-            <div class="login-page__form__logo">
-                <img class="login-page__form__logo-img" src="../../../assets/logo.png" alt="logo" routerLink="/">
-            </div>
-            <mat-error class="error" *ngIf="error">{{error}}</mat-error>
-            <mat-form-field appearance="outline">
-                <mat-label>Логин</mat-label>
-                <input formControlName="login" matInput type="text" [errorStateMatcher]="matcher">
-                <mat-error *ngIf="form.get('login').hasError('required')">Обязательное поле</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Пароль</mat-label>
-                <input formControlName="password" matInput [type]="hidePass ? 'password' : 'text'">
-                <button type="button" mat-icon-button matSuffix (click)="hidePass = !hidePass">
-                    <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="form.get('password').hasError('required')">Обязательное поле</mat-error>
-            </mat-form-field>
-            <button type="submit" mat-raised-button class="login-page__form__btn" color="primary">ВОЙТИ</button>
-            <app-loading *ngIf="loading"></app-loading>
+  <div class="login-form__wrapper">
+    <div class="login-form">
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <h2 class="login-form__title">Административная панель</h2>
+        <div class="login-form__error">
+            <mat-error *ngIf="error">{{ error }}</mat-error>
         </div>
-    </form>
+        <mat-form-field class="login-form__field" appearance="outline">
+          <mat-label>Логин</mat-label>
+          <input formControlName="login" matInput type="text" [errorStateMatcher]="matcher" />
+          <mat-error *ngIf="form.get('login').hasError('required')">Обязательное поле</mat-error>
+        </mat-form-field>
+        <mat-form-field class="login-form__field" appearance="outline">
+          <mat-label>Пароль</mat-label>
+          <input formControlName="password" matInput [type]="hidePass ? 'password' : 'text'" />
+          <button type="button" mat-icon-button matSuffix (click)="hidePass = !hidePass">
+            <mat-icon>{{ hidePass ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('password').hasError('required')">Обязательное поле</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button class="login-form__submit" color="primary">ВОЙТИ</button>
+      </form>
+    </div>
+  </div>
 </div>
+
+<app-loading *ngIf="loading"></app-loading>

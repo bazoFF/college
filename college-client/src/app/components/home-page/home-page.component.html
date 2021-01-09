@@ -1,34 +1,28 @@
 <div class="home-page">
-  <div class="home-page__wrapper">
-    <div class="home-page__logo">
-      <img class="home-page__logo-img" src="../../../assets/logo.png" alt="logo" routerLink="/" />
-    </div>
-    <mat-tab-group #tabs dynamicHeight [animationDuration]="animationDuration">
-      <mat-tab>
-        <app-offer-form
-          (sendRequest)="openOffersList($event)"
-          (next)="slideToRequest()"
-          [showNext]="canSlideToRequest"
-        ></app-offer-form>
-      </mat-tab>
-      <mat-tab>
-        <app-request-form
-                *ngIf="offer"
-                (sendRequest)="sendRequest($event)"
-                (back)="slideToOffer()"
-                [offer]="offer"
-        ></app-request-form>
-      </mat-tab>
-      <mat-tab>
-        <div class="home-page__finish">
-          Поздравляем, {{loanRequest?.person.firstName}}!<br><br>
-          Вы успешно отправили заявку на оформление ипотеки.<br>
-          Скоро с вами свяжется сотрудник "{{offer?.bank.name}}" для уточнения деталей.<br><br>
-          Хорошего дня!
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+  <mat-tab-group #tabs dynamicHeight [animationDuration]="animationDuration">
+    <mat-tab>
+      <app-offer-form
+        (sendRequest)="openOffersList($event)"
+        (next)="slideToRequest()"
+        [showNext]="canSlideToRequest"
+      ></app-offer-form>
+    </mat-tab>
+    <mat-tab>
+      <app-request-form
+        *ngIf="offer"
+        (sendRequest)="sendRequest($event)"
+        (back)="slideToOffer()"
+        [offer]="offer"
+      ></app-request-form>
+    </mat-tab>
+    <mat-tab>
+      <div class="home-page__finish">
+        Поздравляем, {{ loanRequest?.person.firstName }}!<br /><br />
+        Вы успешно отправили заявку на оформление ипотеки.<br />
+        Скоро с вами свяжется сотрудник "{{ offer?.bank.name }}" для уточнения деталей.<br /><br />
+        Хорошего дня!
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <app-loading *ngIf="loading"></app-loading>
 </div>
-
-<app-loading *ngIf="loading"></app-loading>
