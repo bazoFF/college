@@ -6,7 +6,9 @@ use App\Models\Admin;
 use App\Models\Bank;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,18 +24,18 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-//        $this->seedAdmin();
+        $this->seedAdmins();
         $this->seedBanks();
     }
 
-//    private function seedAdmin()
-//    {
-//        Admin::create('admin', Hash::make('hbT&e252g$RYLPDx!@9a'));
-//    }
+    private function seedAdmins()
+    {
+        Admin::create('admin', Hash::make('12qwe345'));
+    }
 
-    private function seedBanks()
+    private function seedBanks(): void
     {
         $names = ['Cбербанк', 'Тинькофф', 'Альфа-Банк', 'Райффайзенбанк'];
 

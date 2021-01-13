@@ -21,9 +21,9 @@ import {
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSliderModule,
-  MatStepperModule,
+  MatStepperModule, MatTableModule,
   MatTabsModule
-} from '@angular/material';
+} from "@angular/material";
 import { HttpClientModule } from '@angular/common/http';
 import { AdminPanelPageComponent } from './components/admin-panel-page/admin-panel-page.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
@@ -76,7 +76,8 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
     MatExpansionModule,
     MatListModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule
   ],
   entryComponents: [OfferListComponent],
   providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig }],

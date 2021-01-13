@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Dto\Auth\CredentialsDto;
-use App\Models\Admin;
-use Carbon\Carbon;
+use App\EntityServices\AuthService;
 use Exception;
-use Firebase\JWT\JWT;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    private AuthService $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -22,38 +25,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $dto = new CredentialsDto($request->all());
-
-        /** @var Admin $admin */
-        $admin = Admin::query()->where('login', $dto->login)->first();
-
-        if (empty($admin)) {
-            return response()->json('Пользователя с таким логином не существует', 444);
-        }
-
-        if (!Hash::check($dto->password, $admin->password)) {
-            return response()->json('Неверный пароль', 444);
-        }
-
-        $token = $this->createToken($dto);
+        $token = $this->authService->getToken($dto);
 
         return response()->json($token);
-    }
-
-    private function createToken(CredentialsDto $dto)
-    {
-        return JWT::encode(
-            [
-                'payload' => $dto,
-                'exp' => $this->getExpirationDate()
-            ],
-            config('jwt.secret')
-        );
-    }
-
-    private function getExpirationDate()
-    {
-        $expiration = new Carbon();
-        $expiration = $expiration->addMinutes(config('jwt.ttl'));
-        return $expiration->timestamp;
     }
 }

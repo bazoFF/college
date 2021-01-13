@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://college/api'
+  apiUrl: 'http://college/api',
+  basicUrl: 'http://college'
 };

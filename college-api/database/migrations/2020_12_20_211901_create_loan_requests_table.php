@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Bank;
-use App\Models\Person;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

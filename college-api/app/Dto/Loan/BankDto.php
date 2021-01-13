@@ -21,7 +21,7 @@ class BankDto
         $dto = new self();
         $dto->id = $bank->id;
         $dto->name = $bank->name;
-        $dto->rate = $bank->rate / 100;
+        $dto->rate = $bank->rate;
 
         return $dto;
     }

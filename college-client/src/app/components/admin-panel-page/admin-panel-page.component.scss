@@ -1,0 +1,10 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.admin-page {
+  padding: 50px;
+
+  &__table {
+    width: 100%;
+  }
+}

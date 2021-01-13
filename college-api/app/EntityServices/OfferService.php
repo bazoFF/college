@@ -21,7 +21,7 @@ class OfferService
         $offer = new OfferDto();
         $offer->bank = BankDto::createFromEntity($bank);
         $offer->credit = $dto->price - $dto->deposit;
-        $offer->monthlyPayment = $offer->credit * (1 + $offer->bank->rate) / ($dto->duration * 12);
+        $offer->monthlyPayment = $offer->credit * (1 + $offer->bank->rate / 100) / ($dto->duration * 12);
         $offer->neededSalary = $offer->monthlyPayment * 1.5;
 
         return $offer;

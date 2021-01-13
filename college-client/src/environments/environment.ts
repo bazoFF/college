@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://college/api'
+  apiUrl: 'http://college/api',
+  basicUrl: 'http://college'
 };
 
 /*
