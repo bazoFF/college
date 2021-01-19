@@ -1,8 +1,0 @@
-.vscode
-.storybook
-.idea
-.config
-.npm
-node_modules
-dist
-cypress

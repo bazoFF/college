@@ -1,0 +1,12 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.login {
+  @include form;
+
+  &-form__error {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+}

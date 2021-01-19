@@ -1,0 +1,62 @@
+@import './variables';
+
+@mixin form() {
+  &-form {
+    width: 300px;
+    ::ng-deep .mat-vertical-content {
+      padding: 12px 24px;
+    }
+    ::ng-deep .mat-vertical-stepper-header {
+      padding: 12px 24px 24px 24px;
+    }
+    &__wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    &__title {
+      text-align: center;
+      padding: 25px 0;
+    }
+    &__next, &__back {
+      position: absolute;
+    }
+    &__next {
+      transform: translate(10px, -5px);
+    }
+    &__back {
+      transform: translate(-67px, -6px);
+    }
+    &__field {
+      width: 100%;
+      ::ng-deep .mat-form-field-subscript-wrapper {
+        margin-top: 9px;
+      }
+      &-number {
+        margin-bottom: 30px;
+      }
+      &__input {
+        text-align: right;
+      }
+      &__slider {
+        ::ng-deep, .mat-slider {
+          padding: 0;
+          height: 0;
+        }
+        width: 97%;
+        &-container {
+          display: flex;
+          justify-content: center;
+          transform: translateY(-81px);
+        }
+      }
+    }
+    &__submit {
+      padding: 8px;
+      letter-spacing: 1px;
+      font-size: 15px;
+      margin-top: 5px;
+      width: 100%;
+    }
+  }
+}

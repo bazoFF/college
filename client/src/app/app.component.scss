@@ -1,0 +1,41 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.wrapper {
+  display: flex;
+  background-color: $background-color-gray;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  @media #{$xs} {
+    background-color: white;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  justify-content: center;
+  width: 520px;
+  padding: 40px 0;
+  margin: 40px 0;
+  box-shadow: $shadow;
+  border-radius: 15px;
+  @media #{$xs} {
+    box-shadow: none;
+    margin: 0;
+    padding: 15px;
+  }
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  &-img {
+    width: 110px;
+    cursor: pointer;
+  }
+}
+

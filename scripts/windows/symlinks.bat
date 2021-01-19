@@ -1,1 +1,0 @@
-mklink /j "C:\Projects\OpenServer\domains\college\api" "..\..\college-api"
