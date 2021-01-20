@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
     private function seedAdmins()
     {
-        Admin::create('admin', Hash::make('12qwe345'));
+        Admin::create('admin', Hash::make('secret'));
     }
 
     private function seedBanks(): void

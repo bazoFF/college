@@ -20,5 +20,9 @@ Route::group(
         'prefix' => 'auth'
     ],
     function(Router $router) {
-        $router->post('login', 'AuthController@login');
-    });
+//        $router->post('login', 'AuthController@login');
+        $router->post('login', fn() => ['test data', 12345]);
+    }
+);
+
+//Route::get('test', fn() => ['test data', 12345]);

@@ -25,7 +25,7 @@
 #curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 #sudo apt-get install -y nodejs
 
-echo Updating nginx mortgage.com site configuration
-sudo cp -f /home/vagrant/mortgage/shared/etc/nginx/sites-available/mortgage.com /etc/nginx/sites-available/mortgage.com
+echo Add symlink to site configuration
+sudo ln -s -f /home/vagrant/mortgage/shared/etc/nginx/sites-available/mortgage.com /etc/nginx/sites-available/mortgage.com
 sudo systemctl restart php7.4-fpm.service
 sudo systemctl restart nginx

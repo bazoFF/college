@@ -9,17 +9,16 @@ server {
     charset utf-8;
     sendfile off;
     client_max_body_size 32m;
+    root /home/vagrant/mortgage/api/public;
 
-    root /home/vagrant/mortgage/client/dist/client;
-	
-	location / {    	
-        try_files $uri $uri/ /index.html;
-    }  
+    location / {
+        root /home/vagrant/mortgage/client/dist/client;
+        try_files $uri $uri/ /index.html =404;
+    }
 
-	location /api {
-		alias /home/vagrant/mortgage/api/public;
-		try_files $uri $uri/ /index.php =404;
-	}
+    location ~ ^(/api|/auth) {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }
