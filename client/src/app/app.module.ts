@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { HeaderComponent } from './components/shared/header/header.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +30,9 @@ import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng
 import { OfferListComponent } from './components/home-page/offers-list/offer-list.component';
 import { OfferFormComponent } from './components/home-page/offer-form/offer-form.component';
 import { RequestFormComponent } from './components/home-page/request-form/request-form.component';
+import { MatSortModule } from '@angular/material/sort';
+import { PageComponent } from './components/shared/page/page.component';
+import { TableComponent } from './components/shared/table/table.component';
 
 export const currencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
@@ -46,13 +48,14 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
   declarations: [
     AppComponent,
     HomePageComponent,
-    HeaderComponent,
     LoginPageComponent,
     AdminPanelPageComponent,
     LoadingComponent,
     OfferListComponent,
     OfferFormComponent,
     RequestFormComponent,
+    PageComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
     MatListModule,
     MatChipsModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   entryComponents: [OfferListComponent],
   providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig }],

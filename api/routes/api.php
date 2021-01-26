@@ -9,5 +9,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(Router $router) {
 
     $router->group(['prefix' => 'admin'], function (Router $router) {
         $router->get('banks', 'BankController@get');
+        $router->get('people', 'PersonController@get');
+        $router->get('loans', 'LoanController@get');
     });
 });

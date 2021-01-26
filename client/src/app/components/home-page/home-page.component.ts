@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTabGroup } from '@angular/material';
 import { OfferListComponent } from './offers-list/offer-list.component';
 import { IOffer, IOfferRequest } from '../../models/offer';
@@ -20,7 +20,6 @@ export class HomePageComponent implements OnInit {
   canSlideToRequest: boolean = false;
 
   loading: boolean = false;
-  animationDuration: number = 800;
 
   constructor(private loanService: LoanService, public dialog: MatDialog) {}
 
@@ -39,13 +38,11 @@ export class HomePageComponent implements OnInit {
       this.loading = false;
 
       offerRef.afterClosed().subscribe((offer) => {
-        this.offer = offer;
+        if (offer) {
+          this.offer = offer;
 
-        if (this.offer) {
-          setTimeout(() => {
-            this.canSlideToRequest = true;
-          }, this.animationDuration * 1.5);
           this.slideToRequest();
+          this.canSlideToRequest = true;
         }
       });
     });
@@ -62,7 +59,6 @@ export class HomePageComponent implements OnInit {
 
     this.loanService.loanRequest(dto).subscribe(() => {
       this.loanRequest = dto;
-
       this.slideToFinish();
       this.loading = false;
     });

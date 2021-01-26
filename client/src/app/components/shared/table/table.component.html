@@ -1,0 +1,5 @@
+<table mat-table [dataSource]="dataSource" matSort class="table">
+  <mat-text-column *ngFor="let column of columns" [name]="column.name" [headerText]="column.header"></mat-text-column>
+  <tr mat-header-row *matHeaderRowDef="columnsNames"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsNames"></tr>
+</table>

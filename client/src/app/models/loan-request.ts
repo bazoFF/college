@@ -1,8 +1,11 @@
 import { IOffer, IOfferRequest } from './offer';
 import { IPerson } from './person';
 
-export interface ILoanRequest {
+export interface ILoan {
   offer: IOffer;
-  offerRequest: IOfferRequest;
   person: IPerson;
+}
+
+export interface ILoanRequest extends ILoan{
+  offerRequest: IOfferRequest;
 }

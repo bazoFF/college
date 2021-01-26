@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\Loan\BankDto;
 use App\Dto\Loan\LoanRequestDto;
 use App\Dto\Loan\OfferRequestDto;
 use App\EntityServices\LoanRequestService;
 use App\EntityServices\OfferService;
+use App\Models\Bank;
+use App\Models\LoanRequest;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
@@ -34,5 +37,14 @@ class LoanController extends Controller
         $this->loanRequestService->create($dto);
 
         return response()->noContent();
+    }
+
+    public function get()
+    {
+        return response()->json(array_values(
+            LoanRequest::query()->get()
+                ->map(fn(Bank $bank) => BankDto::createFromEntity($bank))
+                ->toArray()
+        ));
     }
 }

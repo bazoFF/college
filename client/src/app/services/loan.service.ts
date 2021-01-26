@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IOffer, IOfferRequest } from '../models/offer';
-import { ILoanRequest } from '../models/loan-request';
+import { ILoan, ILoanRequest } from '../models/loan-request';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,9 @@ export class LoanService {
 
   loanRequest(dto: ILoanRequest): Observable<void> {
     return this.http.put<void>(`${environment.apiUrl}/loan-request`, dto);
+  }
+
+  get(): Observable<ILoan[]> {
+    return this.http.get<ILoan[]>(`${environment.apiUrl}/admin/loans`);
   }
 }

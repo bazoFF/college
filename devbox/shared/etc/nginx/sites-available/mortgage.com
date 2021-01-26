@@ -16,7 +16,7 @@ server {
         try_files $uri $uri/ /index.html =404;
     }
 
-    location ~ ^(/api|/auth) {
+    location ~ ^(/api/|/auth/) {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
