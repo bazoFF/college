@@ -3,4 +3,9 @@
 
 .admin-page {
   padding: 0 40px;
+  min-width: 900px;
+  &__title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
 }

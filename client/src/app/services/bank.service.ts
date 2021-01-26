@@ -10,7 +10,7 @@ import { IBank } from '../models/bank';
 export class BankService {
   constructor(private http: HttpClient) {}
 
-  get(): Observable<IBank[]> {
+  getAll(): Observable<IBank[]> {
     return this.http.get<IBank[]>(`${environment.apiUrl}/admin/banks`);
   }
 }

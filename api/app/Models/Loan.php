@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,9 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $deposit
  * @property int $duration
  */
-class LoanRequest extends Model
+class Loan extends Model
 {
-    protected $table = 'loan_requests';
+    protected $table = 'loans';
 
     protected $fillable = [
         'bankId',

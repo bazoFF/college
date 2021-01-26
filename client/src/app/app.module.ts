@@ -81,7 +81,7 @@ export const currencyMaskConfig: CurrencyMaskConfig = {
     MatChipsModule,
     MatDialogModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
   ],
   entryComponents: [OfferListComponent],
   providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig }],

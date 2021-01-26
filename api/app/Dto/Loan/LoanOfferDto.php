@@ -2,8 +2,15 @@
 
 namespace App\Dto\Loan;
 
-class OfferDto
+use App\Dto\Bank\BankDto;
+
+class LoanOfferDto
 {
+    public int $credit;
+    public int $monthlyPayment;
+    public int $neededSalary;
+    public BankDto $bank;
+
     public static function create(array $fields): self
     {
         $dto = new self();
@@ -14,12 +21,4 @@ class OfferDto
 
         return $dto;
     }
-
-    public BankDto $bank;
-
-    public int $credit;
-
-    public int $monthlyPayment;
-
-    public int $neededSalary;
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoanRequestsTable extends Migration
+class CreateLoansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLoanRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('loan_requests', function (Blueprint $table) {
+        Schema::create('loans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bankId')->index();
             $table->foreignId('personId')->index();
@@ -32,6 +32,6 @@ class CreateLoanRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loan_requests');
+        Schema::dropIfExists('loans');
     }
 }

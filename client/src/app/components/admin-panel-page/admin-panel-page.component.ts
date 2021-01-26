@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IBank } from '../../models/bank';
 import { BankService } from "../../services/bank.service";
-import { IPerson } from '../../models/person';
-import { ILoan } from '../../models/loan-request';
-import { PersonService } from '../../services/person.service';
+import { ILoan } from '../../models/loan';
 import { combineLatest } from 'rxjs';
 import { LoanService } from '../../services/loan.service';
 import { ITableColumn } from '../../models/table';
@@ -16,18 +14,32 @@ import { ITableColumn } from '../../models/table';
 export class AdminPanelPageComponent implements OnInit {
   loading: boolean = true;
   banks: IBank[];
-  people: IPerson[];
   loans: ILoan[];
 
   banksColumns: ITableColumn[];
-  peopleColumns: ITableColumn[];
   loansColumns: ITableColumn[];
 
-  constructor(private bankService: BankService, private personService: PersonService, private loanService: LoanService) {}
+  // todo: добавить адаптивность
+  // todo: добавить возможные CRUD операции для банков
+
+  constructor(private bankService: BankService, private loanService: LoanService) {}
 
   ngOnInit() {
-    this.setupColumns();
     this.load();
+    this.setupColumns();
+  }
+  private load() {
+    combineLatest([
+      this.bankService.getAll(),
+      this.loanService.getAll()
+    ]).subscribe(([banks, loans]) => {
+      this.banks = banks;
+      this.loans = loans;
+
+      this.loading = false;
+    }, () => {
+      this.loading = false;
+    });
   }
 
   private setupColumns() {
@@ -41,21 +53,32 @@ export class AdminPanelPageComponent implements OnInit {
         header: 'Процентная ставка'
       }
     ];
-  }
 
-  private load() {
-    combineLatest([
-      this.bankService.get(),
-      this.personService.get(),
-      this.loanService.get()
-    ]).subscribe(([banks, people, loans]) => {
-      this.banks = banks;
-      this.people = people;
-      this.loans = loans;
-
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
+    this.loansColumns = [
+      {
+        name: 'bank',
+        header: 'Название банка',
+      },
+      {
+        name: 'person',
+        header: 'ФИО заёмщика',
+      },
+      {
+        name: 'monthlyPayment',
+        header: 'Ежемесячный платёж'
+      },
+      {
+        name: 'price',
+        header: 'Цена недвижимости'
+      },
+      {
+        name: 'deposit',
+        header: 'Первоначальный взнос'
+      },
+      {
+        name: 'duration',
+        header: 'Срок кредита'
+      },
+    ];
   }
 }

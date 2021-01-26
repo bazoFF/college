@@ -9,25 +9,20 @@ import { ITableColumn } from '../../../models/table';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  @ViewChild(MatSort, {static: false}) matSort: MatSort;
-
   @Input() data: any[];
   @Input() columns: ITableColumn[];
-  @Input() sort: boolean = true;
+
+  dataSource: MatTableDataSource<any[]>;
+
+  // todo: добавить возможность добавлять Pipe к колонке
 
   get columnsNames() {
     return this.columns.map(column => column.name);
   }
 
-  dataSource: MatTableDataSource<any[]>;
-
   constructor() { }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.data);
-
-    if (this.sort) {
-      this.dataSource.sort = this.matSort;
-    }
   }
 }

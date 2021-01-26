@@ -3,7 +3,7 @@ import { MatDialog, MatTabGroup } from '@angular/material';
 import { OfferListComponent } from './offers-list/offer-list.component';
 import { IOffer, IOfferRequest } from '../../models/offer';
 import { LoanService } from '../../services/loan.service';
-import { ILoanRequest } from '../../models/loan-request';
+import { ILoanRequest } from '../../models/loan';
 import { IPerson } from '../../models/person';
 
 @Component({

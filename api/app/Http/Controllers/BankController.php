@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Dto\Loan\BankDto;
-use App\Models\Bank;
+use App\EntityServices\BankService;
 
 class BankController extends Controller
 {
-    public function get()
+    // todo: добавить все CRUD операции
+
+    private BankService $bankGetService;
+
+    public function __construct(BankService $bankGetService)
     {
-        return response()->json(array_values(
-            Bank::query()->get()
-                ->map(fn(Bank $bank) => BankDto::createFromEntity($bank))
-                ->toArray()
-        ));
+        $this->bankGetService = $bankGetService;
+    }
+
+    public function getAll()
+    {
+        $dto = $this->bankGetService->getAll();
+
+        return response()->json($dto);
     }
 }

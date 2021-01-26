@@ -1,4 +1,4 @@
-import {IBank} from './bank';
+import { IBank } from './bank';
 
 export interface IOfferRequest {
   price: number;

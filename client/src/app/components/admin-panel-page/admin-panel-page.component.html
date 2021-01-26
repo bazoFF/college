@@ -1,36 +1,14 @@
 <app-page>
-  <div class="admin-page">
-    <mat-tab-group>
+  <div class="admin-page" *ngIf="!loading">
+    <h2 class="admin-page__title">
+      <span>Административная панель</span>
+    </h2>
+    <mat-tab-group dynamicHeight mat-stretch-tabs>
       <mat-tab label="Банки">
-        <app-table [data]="banks" [columns]=""></app-table>
+        <app-table [data]="banks" [columns]="banksColumns"></app-table>
       </mat-tab>
-      <mat-tab label="Заявители">
-<!--        <table mat-table [dataSource]="banks" matSort class="admin-page__table">-->
-<!--          <ng-container matColumnDef="name">-->
-<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Название</th>-->
-<!--            <td mat-cell *matCellDef="let element">{{ element.name }}</td>-->
-<!--          </ng-container>-->
-<!--          <ng-container matColumnDef="rate">-->
-<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Процентная ставка</th>-->
-<!--            <td mat-cell *matCellDef="let element">{{ element.rate / 100 | percent }}</td>-->
-<!--          </ng-container>-->
-<!--          <tr mat-header-row *matHeaderRowDef="columns.banks"></tr>-->
-<!--          <tr mat-row *matRowDef="let row; columns: columns.banks"></tr>-->
-<!--        </table>-->
-      </mat-tab>
-      <mat-tab label="Предложения">
-<!--        <table mat-table [dataSource]="banks" matSort class="admin-page__table">-->
-<!--          <ng-container matColumnDef="name">-->
-<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Название</th>-->
-<!--            <td mat-cell *matCellDef="let element">{{ element.name }}</td>-->
-<!--          </ng-container>-->
-<!--          <ng-container matColumnDef="rate">-->
-<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Процентная ставка</th>-->
-<!--            <td mat-cell *matCellDef="let element">{{ element.rate / 100 | percent }}</td>-->
-<!--          </ng-container>-->
-<!--          <tr mat-header-row *matHeaderRowDef="columns.banks"></tr>-->
-<!--          <tr mat-row *matRowDef="let row; columns: columns.banks"></tr>-->
-<!--        </table>-->
+      <mat-tab label="Заявки">
+        <app-table [data]="loans" [columns]="loansColumns"></app-table>
       </mat-tab>
     </mat-tab-group>
   </div>

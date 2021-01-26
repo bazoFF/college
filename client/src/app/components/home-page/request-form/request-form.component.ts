@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IOffer, IOfferRequest } from '../../../models/offer';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcherService } from '../../../services/error-state-matcher.service';
-import { ILoanRequest } from '../../../models/loan-request';
+import { ILoanRequest } from '../../../models/loan';
 import { IPerson } from '../../../models/person';
 
 @Component({

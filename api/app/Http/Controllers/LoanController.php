@@ -2,49 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Dto\Loan\BankDto;
 use App\Dto\Loan\LoanRequestDto;
-use App\Dto\Loan\OfferRequestDto;
-use App\EntityServices\LoanRequestService;
-use App\EntityServices\OfferService;
-use App\Models\Bank;
-use App\Models\LoanRequest;
+use App\Dto\Loan\LoanOfferRequestDto;
+use App\EntityServices\LoanService;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
 {
-    private OfferService $offerService;
+    private LoanService $loanService;
 
-    private LoanRequestService $loanRequestService;
-
-    public function __construct(OfferService $offerService, LoanRequestService $loanRequestService)
+    public function __construct(LoanService $loanService)
     {
-        $this->offerService = $offerService;
-        $this->loanRequestService = $loanRequestService;
+        $this->loanService = $loanService;
     }
 
-    public function getOffers(Request $request)
-    {
-        $dto = OfferRequestDto::create($request->toArray());
-
-        return response()->json($this->offerService->getOffers($dto));
-    }
-
-    public function loanRequest(Request $request)
+    public function create(Request $request)
     {
         $dto = LoanRequestDto::create($request->toArray());
 
-        $this->loanRequestService->create($dto);
+        $this->loanService->create($dto);
 
         return response()->noContent();
     }
 
-    public function get()
+    public function getOffers(Request $request)
     {
-        return response()->json(array_values(
-            LoanRequest::query()->get()
-                ->map(fn(Bank $bank) => BankDto::createFromEntity($bank))
-                ->toArray()
-        ));
+        $dto = LoanOfferRequestDto::create($request->toArray());
+
+        return response()->json($this->loanService->getOffers($dto));
+    }
+
+    public function getAll()
+    {
+        $dto = $this->loanService->getAll();
+
+        return response()->json($dto);
     }
 }
