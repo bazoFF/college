@@ -21,4 +21,9 @@
 
 Далее добавьте в C:\Windows\System32\drivers\etc\hosts строку "192.168.10.10 mortgage.com" и переходите по адресу http://mortgage.com
 
+* Страница для оформления заявки на ипотеку: http://mortgage.com
+* Страница для авторизации в административную панель: http://mortgage.com/admin/login
+* Страница административной панели: http://mortgage.com/admin
+                                           
+
 
